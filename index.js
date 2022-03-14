@@ -57,7 +57,7 @@ function init() {
       console.log(answers);
       const teamMember = new Manager(answers.name, answers.id,answers.email,answers.officeNumber)
       team.push (teamMember)
-      const teamMemberTwo = new Engineer(answers.name, answers.id,answers.email,answers.officeNumber,answers.github)
+      const teamMemberTwo = new Engineer(answers.name, answers.id,answers.email,answers.github)
       team.push (teamMemberTwo)
       const teamMembThree = new Intern (answers.name, answers.id,answers.email,answers.school)
       const response = generateTeam(team);
