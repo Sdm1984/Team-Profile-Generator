@@ -59,7 +59,8 @@ function init() {
       team.push (teamMember)
       const teamMemberTwo = new Engineer(answers.name, answers.id,answers.email,answers.github)
       team.push (teamMemberTwo)
-      const teamMembThree = new Intern (answers.name, answers.id,answers.email,answers.school)
+      const teamMemberThree = new Intern (answers.name, answers.id,answers.email,answers.school)
+      team.push (teamMemberThree)
       const response = generateTeam(team);
       writeToFile("index.html", response);
     });
