@@ -3,7 +3,6 @@
 ## Walkthrough video link: 
 ## GitHub Info:https://github.com/Sdm1984/Team-Profile-Generator
 
-
 ## Your Task
 
 Your task is to build a Node.js command-line application that takes in information about employees on a software engineering team, then generates an HTML webpage that displays summaries for each person. Testing is key to making code maintainable, so you’ll also write a unit test for every part of your code and ensure that it passes each test.
@@ -48,7 +47,9 @@ The following image shows a mock-up of the generated HTML’s appearance and fun
 
 ![HTML webpage titled “My Team” features five boxes listing employee names, titles, and other key info.](./Assets/10-object-oriented-programming-homework-demo.png)
 
-The styling in the image is just an example, so feel free to add your own.
+## Stephanie Generated HTML version
+
+(./Assets/)
 
 ## Getting Started
 
