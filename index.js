@@ -55,7 +55,7 @@ function writeToFile(fileName, data) {
   );
 }
 
-// Create a function to initialize app
+// Create a function to initialize app with Manager info
 function init() {
   // prompt method calls in array of questions
   inquirer
@@ -66,14 +66,35 @@ function init() {
       const teamMember = new Manager(answers.name, answers.id, answers.email, answers.officeNumber)
       team.push(teamMember)
       const response = generateTeam(team);
-      writeToFile("index.html", response);
-    });
-}
 
-// const teamMemberTwo = new Engineer(answers.name, answers.id,answers.email,answers.github)
-// team.push (teamMemberTwo)
-// const teamMemberThree = new Intern(answers.name, answers.id,answers.email,answers.school)
-// team.push (teamMemberThree)
 
-// Function to initialize app
-init();
+      //Run Engineer function
+      function newEngineer() {
+        // prompt method calls in array of questions
+        inquirer
+          .prompt(questions)
+          // promise, answers function takes answer responses and writes to readme
+          .then((answers) => {
+            console.log(answers);
+            const teamMemberTwo = new Engineer(answers.name, answers.id, answers.email, answers.github)
+            team.push(teamMemberTwo)
+            const response = generateTeam(team);
+
+            //Run Intern function
+            function newIntern() {
+              // prompt method calls in array of questions
+              inquirer
+                .prompt(questions)
+                // promise, answers function takes answer responses and writes to readme
+                .then((answers) => {
+                  console.log(answers);
+                  const teamMemberThree = new Intern(answers.name, answers.id, answers.email, answers.school)
+                  team.push(teamMemberThree)
+                  const response = generateTeam(team);
+                  writeToFile("index.html", response);
+                });
+            }
+
+            // Function to initialize app
+            init();
+          
