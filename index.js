@@ -53,15 +53,15 @@ const questions = [
 ];
 
 const addPrompt = () =>
-inquirer.prompt([
-  {
-    type: "confirm",
-    name: "add",
-    message: "Would you like to add another employee to the team?",
-  },
-]);
+  inquirer.prompt([
+    {
+      type: "confirm",
+      name: "add",
+      message: "Would you like to add another employee to the team?",
+    },
+  ]);
 
-function init() {
+function newPerson() {
   questions().then((data) => {
     switch (data.role) {
       case "Manager":
@@ -70,7 +70,7 @@ function init() {
           data.id,
           data.email,
           data.officeNumber
-        );
+                );
         team.push(newManager);
         break;
       case "Engineer":
@@ -91,45 +91,50 @@ function init() {
     addPrompt().then((data) => {
       if (data.add) {
         init();
-     // } else {
+        } else {
 
-// Create a function to write to html
-function writeToFile(fileName, data) {
-  fs.writeFile(fileName, data, (err) =>
-    err ? console.log(err) : console.log("Success!")
-  );
-}
+        // Create a function to write to html
+        function writeToFile(fileName, data) {
+          fs.writeFile(fileName, data, (err) =>
+            err ? console.log(err) : console.log("Success!")
+          );
+        }
 
-// Create a function to initialize app with Manager info
-function init() {
-  // prompt method calls in array of questions
-  inquirer
-    .prompt(questions)
-    // promise, answers function takes answer responses and writes to readme
-    .then((answers) => {
+        // Create a function to initialize app with Manager info
+        function init() {
+          // prompt method calls in array of questions
+          inquirer
+            .prompt(questions)
+            // promise, answers function takes answer responses and writes to readme
+            .then((answers) => {
 
-      if (answers.role === "Manager") {
+              if (answers.role === "Manager") {
 
-        const teamMember = new Manager(answers.name, answers.id, answers.email, answers.officeNumber)
-        team.push(teamMember)
+                const teamMember = new Manager(answers.name, answers.id, answers.email, answers.officeNumber)
+                team.push(teamMember)
 
-      } else if (answers.role === "Engineer") {
+              } else if (answers.role === "Engineer") {
 
-        const teamMemberTwo = new Engineer(answers.name, answers.id, answers.email, answers.github)
-        team.push(teamMemberTwo)
+                const teamMemberTwo = new Engineer(answers.name, answers.id, answers.email, answers.github)
+                team.push(teamMemberTwo)
 
-      } else if (answers.role === "Intern") {
+              } else if (answers.role === "Intern") {
 
-        const teamMemberThree = new Intern(answers.name, answers.id, answers.email, answers.school)
-        team.push(teamMemberThree)
+                const teamMemberThree = new Intern(answers.name, answers.id, answers.email, answers.school)
+                team.push(teamMemberThree)
 
-        
-        const response = generateTeam(team);
-        writeToFile("index.html", response);
+
+                const response = generateTeam(team);
+                writeToFile("index.html", response);
+              }
+
+            });
+        }
+
+        // Function to initialize app
+        init();
       }
-
-    });
+    }
+  ,
+  )
 }
-
-// Function to initialize app
-init();
