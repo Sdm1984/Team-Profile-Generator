@@ -4,9 +4,9 @@ const fs = require("fs");
 const generateTeam = require("./team-template.js");
 
 //Import team role files
-const Manager = require('./Manager');
-const Intern = require('./Intern');
-const Engineer = require('./Engineer');
+const Manager = require('./manager');
+const Intern = require('./intern');
+const Engineer = require('./engineer');
 const team = []
 
 //Employee Questions
@@ -61,39 +61,32 @@ const addPrompt = () =>
     },
   ]);
 
-function newPerson() {
-  questions().then((data) => {
-    switch (data.role) {
-      case "Manager":
-        let newManager = new Manager(
-          data.name,
-          data.id,
-          data.email,
-          data.officeNumber
-        );
-        team.push(newManager);
-        break;
-      case "Engineer":
-        let newEngineer = new Engineer(
-          data.name,
-          data.id,
-          data.email,
-          data.github
-        );
-        team.push(newEngineer);
-        break;
-      case "Intern":
-        let newIntern = new Intern(data.name, data.id, data.email, data.school);
-        team.push(newIntern);
-        break;
-    }
+  function newPerson() {
+    questions().then((data) => {
+      switch (data.role) {
+        case "Manager":
+          let newManager = new Manager(data.name,data.id,data.email,data.officeNumber);
+          team.push(newManager);
+          break;
+        case "Engineer":
+          let newEngineer = new Engineer(data.name,data.id,data.email,data.github);
+          team.push(newEngineer);
+          break;
+        case "Intern":
+          let newIntern = new Intern(data.name, data.id, data.email, data.school);
+          team.push(newIntern);
+          break;
+      }
+    });
+  }
+
     console.log("Employee data saved!");
     addPrompt().then((data) => {
       if (data.add) {
         init();
       } else {
 
-        
+
 
         // Create a function to write to html
         function writeToFile(fileName, data) {
