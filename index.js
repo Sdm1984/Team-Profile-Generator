@@ -52,6 +52,7 @@ const questions = [
   },
 ];
 
+// User presented with prompt to add a new employee to the team if needed
 const addPrompt = () =>
   inquirer.prompt([
     {
@@ -61,6 +62,7 @@ const addPrompt = () =>
     },
   ]);
 
+  // Function to help add another employee based on whether they are a Manager,Engineer or Intern
 function newPerson() {
   questions().then((data) => {
     switch (data.role) {
@@ -85,7 +87,7 @@ function newPerson() {
 //   if (data.add) {
 //     init();
 //   } else {
-  
+
     // Create a function to write to html
     function writeToFile(fileName, data) {
       fs.writeFile(fileName, data, (err) =>
