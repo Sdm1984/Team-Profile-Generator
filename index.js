@@ -133,8 +133,4 @@ function newPerson() {
 
         // Function to initialize app
         init();
-      }
-    }
-  ,
-  )
-}
+
