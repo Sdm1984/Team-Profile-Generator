@@ -70,7 +70,7 @@ function newPerson() {
           data.id,
           data.email,
           data.officeNumber
-                );
+        );
         team.push(newManager);
         break;
       case "Engineer":
@@ -91,7 +91,9 @@ function newPerson() {
     addPrompt().then((data) => {
       if (data.add) {
         init();
-        } else {
+      } else {
+
+        
 
         // Create a function to write to html
         function writeToFile(fileName, data) {
