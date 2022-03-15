@@ -28,25 +28,70 @@ const questions = [
   },
   {
     type: "input",
-    message: "Are you a Manager, Engineer or Intern?",
-    name: "Manager", "Engineer": "Intern",
+    message: "What is the employee's role?",
+    name: "role",
+    choice: ["Manager", "Engineer", "Intern"]
   },
   {
     type: "input",
-    message: "What is your office number?",
+    message: "What is the manager's office number?",
     name: "officeNumber",
+    when: (answers) => answers.role === "Manager",
   },
   {
     type: "input",
-    message: "Please enter your GitHub username if you have one.",
+    message: "What is the engineer's GitHub username?",
     name: "github",
+    when: (answers) => answers.role === "Engineer",
   },
   {
     type: "input",
-    message: "Please enter your school's name.",
+    message: "What school is the intern attending?",
     name: "school",
+    when: (answers) => answers.role === "Intern",
   },
 ];
+
+const addPrompt = () =>
+inquirer.prompt([
+  {
+    type: "confirm",
+    name: "add",
+    message: "Would you like to add another employee to the team?",
+  },
+]);
+
+function init() {
+  questions().then((data) => {
+    switch (data.role) {
+      case "Manager":
+        let newManager = new Manager(
+          data.name,
+          data.id,
+          data.email,
+          data.officeNumber
+        );
+        team.push(newManager);
+        break;
+      case "Engineer":
+        let newEngineer = new Engineer(
+          data.name,
+          data.id,
+          data.email,
+          data.github
+        );
+        team.push(newEngineer);
+        break;
+      case "Intern":
+        let newIntern = new Intern(data.name, data.id, data.email, data.school);
+        team.push(newIntern);
+        break;
+    }
+    console.log("Employee data saved!");
+    addPrompt().then((data) => {
+      if (data.add) {
+        init();
+     // } else {
 
 // Create a function to write to html
 function writeToFile(fileName, data) {
@@ -62,39 +107,29 @@ function init() {
     .prompt(questions)
     // promise, answers function takes answer responses and writes to readme
     .then((answers) => {
-      console.log(answers);
-      const teamMember = new Manager(answers.name, answers.id, answers.email, answers.officeNumber)
-      team.push(teamMember)
-      const response = generateTeam(team);
 
+      if (answers.role === "Manager") {
 
-      //Run Engineer function
-      function newEngineer() {
-        // prompt method calls in array of questions
-        inquirer
-          .prompt(questions)
-          // promise, answers function takes answer responses and writes to readme
-          .then((answers) => {
-            console.log(answers);
-            const teamMemberTwo = new Engineer(answers.name, answers.id, answers.email, answers.github)
-            team.push(teamMemberTwo)
-            const response = generateTeam(team);
+        const teamMember = new Manager(answers.name, answers.id, answers.email, answers.officeNumber)
+        team.push(teamMember)
 
-            //Run Intern function
-            function newIntern() {
-              // prompt method calls in array of questions
-              inquirer
-                .prompt(questions)
-                // promise, answers function takes answer responses and writes to readme
-                .then((answers) => {
-                  console.log(answers);
-                  const teamMemberThree = new Intern(answers.name, answers.id, answers.email, answers.school)
-                  team.push(teamMemberThree)
-                  const response = generateTeam(team);
-                  writeToFile("index.html", response);
-                });
-            }
+      } else if (answers.role === "Engineer") {
 
-            // Function to initialize app
-            init();
-          
+        const teamMemberTwo = new Engineer(answers.name, answers.id, answers.email, answers.github)
+        team.push(teamMemberTwo)
+
+      } else if (answers.role === "Intern") {
+
+        const teamMemberThree = new Intern(answers.name, answers.id, answers.email, answers.school)
+        team.push(teamMemberThree)
+
+        
+        const response = generateTeam(team);
+        writeToFile("index.html", response);
+      }
+
+    });
+}
+
+// Function to initialize app
+init();
