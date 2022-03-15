@@ -95,7 +95,7 @@ function newPerson() {
       );
     }
 
-    // Create a function to initialize app with Manager info
+    // Create a function to initialize app 
     function init() {
       // prompt method calls in array of questions
       inquirer
