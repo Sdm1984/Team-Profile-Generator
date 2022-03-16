@@ -1,6 +1,6 @@
 # Team-Profile-Generator
 
-## Walkthrough video link: 
+## Walkthrough video link: https://drive.google.com/file/d/1rPA_GkJ7gCW_NHC2hI-zW5KRmTxezst2/view
 ## GitHub Info:https://github.com/Sdm1984/Team-Profile-Generator
 
 ## Your Task
@@ -49,7 +49,8 @@ The following image shows a mock-up of the generated HTML’s appearance and fun
 
 ## Stephanie Generated HTML version
 
-(./Assets/)
+<img src="./Assets/destinyschild.png" alt="Screenshot of Profile Generator">
+
 
 ## Getting Started
 
