@@ -4,9 +4,9 @@ const fs = require("fs");
 const generateTeam = require("./team-template.js");
 
 //Import team role files
-const Manager = require('./manager');
-const Intern = require('./intern');
-const Engineer = require('./engineer');
+const Manager = require('./lib/manager');
+const Intern = require('./lib/intern');
+const Engineer = require('./lib/engineer');
 const team = []
 
 //Employee Questions
@@ -53,82 +53,86 @@ const questions = [
 ];
 
 // User presented with prompt to add a new employee to the team if needed
-const addPrompt = () => {
+const nextPerson = () => {
   inquirer.prompt([
     {
       type: "confirm",
-      name: "add",
+      name: "addNewEmployee",
       message: "Would you like to add another employee to the team?",
     },
-  ]).then((answers) => { console.log('yes') })
-
-}
-
-// console.log("Employee data saved!");
-// addPrompt().then((data) => {
-//   if (data.add) {
-//     init();
-//   } else {
-
-// Function to help add another employee based on whether they are a Manager,Engineer or Intern
-function newPerson() {
-  questions().then((data) => {
-    switch (data.role) {
-      case "Manager":
-        let newManager = new Manager(data.name, data.id, data.email, data.officeNumber);
-        team.push(newManager);
-        break;
-      case "Engineer":
-        let newEngineer = new Engineer(data.name, data.id, data.email, data.github);
-        team.push(newEngineer);
-        break;
-      case "Intern":
-        let newIntern = new Intern(data.name, data.id, data.email, data.school);
-        team.push(newIntern);
-        break;
+  ]).then((answer) => { 
+    if (answer.addNewEmployee){
+      init()
+    } else{
+      const response = generateTeam(team);
+      writeToFile("index.html", response);
     }
-  });
-}
+   })
+
+    }
+
+  
+
+    // Function to help add another employee based on whether they are a Manager,Engineer or Intern
+    // function newPerson() {
+    //   questions().then((data) => {
+    //     switch (data.role) {
+    //       case "Manager":
+    //         let newManager = new Manager(data.name, data.id, data.email, data.officeNumber);
+    //         team.push(newManager);
+    //         break;
+    //       case "Engineer":
+    //         let newEngineer = new Engineer(data.name, data.id, data.email, data.github);
+    //         team.push(newEngineer);
+    //         break;
+    //       case "Intern":
+    //         let newIntern = new Intern(data.name, data.id, data.email, data.school);
+    //         team.push(newIntern);
+    //         break;
+    //     }
+    //   });
+    // }
 
 
-// Create a function to write to html
-function writeToFile(fileName, data) {
-  fs.writeFile(fileName, data, (err) =>
-    err ? console.log(err) : console.log("Success!")
-  );
-}
+    // Create a function to write to html
+    function writeToFile(fileName, data) {
+      fs.writeFile(fileName, data, (err) =>
+        err ? console.log(err) : console.log("Success!")
+      );
+    }
 
-// Create a function to initialize app 
-function init() {
-  // prompt method calls in array of questions
-  inquirer
-    .prompt(questions)
-    // promise, answers function takes answer responses and writes to readme
-    .then((answers) => {
+    // Create a function to initialize app 
+    function init() {
+      // prompt method calls in array of questions
+      inquirer
+        .prompt(questions)
+        // promise, answers function takes answer responses and writes to readme
+        .then((answers) => {
 
-      if (answers.role === "Manager") {
+          if (answers.role === "Manager") {
 
-        const teamMember = new Manager(answers.name, answers.id, answers.email, answers.officeNumber)
-        team.push(teamMember)
+            const teamMember = new Manager(answers.name, answers.id, answers.email, answers.officeNumber)
+            team.push(teamMember)
+            nextPerson()
+          } else if (answers.role === "Engineer") {
+          
+            const teamMemberTwo = new Engineer(answers.name, answers.id, answers.email, answers.github)
+            team.push(teamMemberTwo)
+            nextPerson()
+          } else if (answers.role === "Intern") {
 
-      } else if (answers.role === "Engineer") {
+            const teamMemberThree = new Intern(answers.name, answers.id, answers.email, answers.school)
+            team.push(teamMemberThree)
+            nextPerson()
 
-        const teamMemberTwo = new Engineer(answers.name, answers.id, answers.email, answers.github)
-        team.push(teamMemberTwo)
+            
+          }else {
+            init()
+          }
 
-      } else if (answers.role === "Intern") {
+        });
+    }
 
-        const teamMemberThree = new Intern(answers.name, answers.id, answers.email, answers.school)
-        team.push(teamMemberThree)
-
-
-        const response = generateTeam(team);
-        writeToFile("index.html", response);
-      }
-
-    });
-}
-
-// Function to initialize app
-init();
+    // Function to initialize app
+    init();
 
