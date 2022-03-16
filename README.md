@@ -47,7 +47,7 @@ The following image shows a mock-up of the generated HTML’s appearance and fun
 
 ![HTML webpage titled “My Team” features five boxes listing employee names, titles, and other key info.](./Assets/10-object-oriented-programming-homework-demo.png)
 
-## Stephanie Generated HTML version
+## Stephanie's Generated HTML version
 
 <img src="./Assets/destinyschild.png" alt="Screenshot of Profile Generator">
 
