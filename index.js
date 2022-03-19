@@ -27,10 +27,10 @@ const questions = [
     name: "email",
   },
   {
-    type: "input",
+    type: "list",
     message: "What is the employee's role?",
     name: "role",
-    choice: ["Manager", "Engineer", "Intern"]
+    choices: ["Manager", "Engineer", "Intern"]
   },
   {
     type: "input",
