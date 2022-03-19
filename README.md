@@ -1,6 +1,6 @@
 # Team-Profile-Generator
 
-## Walkthrough video link: 
+## Walkthrough video link: https://drive.google.com/file/d/1HMcLLJzY_ykuaHJTAL-FfUxoXAQkkSMj/view
 ## GitHub Info:https://github.com/Sdm1984/Team-Profile-Generator
 
 ## Your Task
